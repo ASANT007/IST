@@ -1,0 +1,232 @@
+
+/* =============================================================================
+    Top Nav Styles
+* ============================================================================= */
+
+.top_nav {
+	background: #07245d;
+	padding: 5px 0;
+	    position: RELATIVE;
+    Z-INDEX: 99;
+}
+.top_nav_trigger {
+	color: #ffffff;
+	cursor: pointer;
+	display: inline-block;
+	font-family: Calibri;
+	font-size: 15px;
+	font-weight: bold;
+	margin-right: 16px;
+	margin-top: 21x;
+	padding-left: 16px;
+	text-transform: uppercase;
+	vertical-align: top;
+}
+
+.top_nav_links ul {
+	background: #093267;
+	margin-top: 19px;
+	padding-top: 6px;
+	margin: 0;
+	padding: 0;
+}
+.top_nav_links ul li {
+	background: none;
+	padding-left: 0;
+	list-style-type: none;
+}
+.top_nav_links {
+	display: none;
+	text-align: left;
+	clear: both;
+}
+.top_nav_links a {
+	color: #ffffff;
+	display: block;
+	font-family: Arial;
+	font-size: 14px;
+	line-height: 20px;
+	padding: 8px 6px 6px 29px;
+	text-decoration: none;
+}
+
+.top_nav_links a:hover {
+	color: #ffffff;
+	text-decoration: none;
+}
+.top_nav_links a:vissited {
+	color: #ffffff;
+	text-decoration: none;
+}
+
+.top_nav_links li ul {
+	background: #0a264b;
+	display: none;
+	padding: 4px 0 8px 0;
+	margin-top: 0;
+        
+}
+.top_nav_links li ul li ul {
+	background: #19447d;
+	padding-bottom: 7px;
+}
+.top_nav_links li ul a {
+	font-size: 13px;
+	padding: 6px 6px 4px 44px;
+	line-height: 17px;
+	text-transform: none;
+}
+li .submenu-trigger {
+	background: url(images/topnav_arrow.png) no-repeat left center;
+	cursor: pointer;
+	display: inline-block;
+	float: right;
+	height: 11px;
+	margin-right: 25px;
+	width: 6px;
+}
+li.submenu_open .submenu-trigger {
+	background: url(images/topnav_arrow.png) no-repeat left center;
+	cursor: pointer;
+	display: inline-block;
+	float: right;
+	height: 11px;
+	margin-right: 25px;
+	width: 6px;
+}
+li.has_child.submenu_open {
+	background: #ee1b24;
+}
+.top_nav_links .has_child_dropdown a span {
+	display: inline-block;
+	height: 8px;
+	margin: 0 0 0 3px;
+	width: 8px;
+}
+.top_nav_links .has_child_dropdown.submenu_open span {
+	display: inline-block;
+	height: 8px;
+	margin: 3px;
+	width: 8px;
+}
+
+
+@media only screen and (min-width: 800px) {
+
+.top_nav {
+	padding: 0;
+	text-align: center;
+}
+.top_nav_trigger {
+	display: inline-block;
+	margin-top: 14px;
+}
+.top_nav_links ul {
+	background: none;
+	padding: 0;
+	display: inline-block;
+}
+.top_nav_links {
+	display: none;
+	vertical-align: top;
+	text-align: center;
+}
+.top_nav_links ul li {
+	display: inline-block;
+	position: relative;
+	vertical-align: top;
+}
+.top_nav_links ul li a:hover {
+	background: #0a264b;
+	vertical-align: top;
+}
+.top_nav_links li ul {
+	background: #07639d;
+	box-sizing: border-box;
+	left: 0;
+	opacity: 0;
+	padding: 0;
+	position: absolute;
+	text-align: left;
+	top: 30px;
+	visibility: hidden;
+	width: 150px;
+	z-index: 9;
+	transition: all 0.25s ease 0s;
+	display: block;
+}
+.top_nav_links li:hover > ul {
+	visibility: visible;
+	opacity: 1;
+}
+.top_nav_links li ul li {
+	display: block;
+	padding: 0;
+}
+li .submenu-trigger {
+	margin-left: 4px;
+	margin-right: 0;
+	float: none;
+}
+.top_nav_links a {
+	padding: 5px 15px;
+}
+
+.top_nav_links a:focus {
+    color: #fff;
+    text-decoration: none;
+    outline: 0;
+}
+.top_nav_links li > ul > li > ul {
+	left: 160px;
+	top: 0;
+	width: 78%;
+}
+.top_nav_links ul.actuators_list {
+	width: 80%;
+}
+.top_nav_links ul li a:hover {
+	background: #07639d;
+}
+
+.top_nav_links ul li ul li:hover > a {
+	background: #1a447e;
+}
+.top_nav_links li ul a {
+	display: block;
+	line-height: 20px;
+	font-size: 13px;
+	padding: 5px 20px;
+	text-transform: capitalize;
+}
+li .submenu-trigger {
+	display: none;
+}
+li.has_child.mis_report ul {
+	width: 200px;
+        right:0;
+        left:inherit;
+}
+.top_nav_trigger {
+	display: none;
+}
+.top_nav_links {
+	display: inline-block;
+}
+.top_nav_links li > ul > li > ul {
+	background: #0a264b;
+}
+li.has_child.mis-menu ul {
+    width: 170px;
+    right:0;
+    left:inherit;
+}
+
+
+.top_nav_links li > ul > li.has_child_dropdown.right-menu > ul {
+    right: 170px;
+    width: 81%;
+    left: inherit;
+}
+
+}

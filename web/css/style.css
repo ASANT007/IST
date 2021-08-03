@@ -1,0 +1,322 @@
+@charset "UTF-8";
+/*
+ * jQuery File Upload Plugin CSS Example
+ * https://github.com/blueimp/jQuery-File-Upload
+ *
+ * Copyright 2013, Sebastian Tschan
+ * https://blueimp.net
+ *
+ * Licensed under the MIT license:
+ * http://www.opensource.org/licenses/MIT
+ */
+
+
+.heading {
+	font-size: 18px;
+	text-align: center;
+	padding: 17px 0 10px 0;
+	font-weight: bold;
+}
+.centerdiv img {
+	margin: 15px auto 0 !important;
+}
+.login-box {
+	box-shadow: 0px 1px 3px 2px #c3c0c0;
+	border-radius: 10px;
+	padding: 5px 12px 30px 12px;
+	margin: 51px 10px 16px 10px;
+}
+.product-heading-cg span {
+	display: inline-block;
+	background: #dedcdc;
+	height: 1px;
+	width: 78%;
+	margin: 5px 0 0 0;
+}
+.btn-secondary {
+	color: #fff;
+	background-color: #6c757d;
+	border-color: #6c757d;
+}
+.user-name {
+	color: #07639d;
+}
+.tbl-report th {
+	background: #2980b9;
+	color: #fff;
+	text-align:center;
+	font-family:'Roboto-Medium';
+	font-weight: normal;
+}
+.btn-ist {
+	text-align: center;
+	margin: 19px 0 0;
+}
+table.table.tbl-report {
+	margin: 0;
+	overflow-x: auto;
+	display: block;
+	width: 100%;
+        border-bottom: 1px solid #ccc;
+}
+.input-width {
+	max-width:250px;
+	display: inline-block;
+	margin-left: 10px;
+}
+.ist-min-width {
+    vertical-align: top;
+    width: 85px;
+    display: inline-block;
+    margin-right: 10px;
+    margin-bottom: 7px;
+}
+.row.form-group.name-group {
+    display: none;
+}
+#ist_type {
+	margin-left:15px;
+}
+h2.page-heading {
+	margin: 0;
+	padding: 0 0 10px 0;
+	font-size: 28px;
+}
+.ist-pending-select {
+	font-size: 13px;
+	padding: 0;
+	height: 24px;
+}
+.ist-pending-select option {
+	font-size:12px;
+	padding:0;
+}
+.radio-btn {
+	vertical-align: middle;
+	margin: 0 4px 2px 0 !important;
+}
+.radio-btn1 {
+	vertical-align: middle;
+	margin: 0 0px 2px 7px !important;
+}
+.label-name label {
+	font-weight: normal;
+	font-size: 13px;
+	font-family:Roboto-Regular;
+}
+label.res-display {
+	display: block;
+}
+.row.form-group.row-bg {
+	display: none;
+}
+.mbtm {
+	margin-bottom:10px;
+}
+label.scheme {
+	display: none;
+}
+.ist-type {
+    font-weight: normal;
+    font-size: 18px !important;
+    text-align: center;
+    display: block;
+}
+
+span.tbl-heading {
+    display: none;
+}
+
+ @media only screen and (min-width: 480px) {
+ label.res-display {
+ display: inline-block;
+}
+.ist-type {
+     display: inline-block;
+}
+#ist_type{
+    display: inline-block;
+    vertical-align: middle;
+    
+}   .btn-ist {
+    margin: 0px 0 0 15px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+}
+ @media only screen and (min-width: 760px) {
+.heading {
+ font-size: 22px;
+ text-align: right;
+ padding: 34px 19px 0 0;
+ font-weight: bold;
+}
+ .login-box {
+ max-width: 350px;
+ width: 100%;
+ margin: 80px auto;
+ padding: 5px 30px 30px 30px;
+}
+.centerdiv img {
+ margin: 15px 0 15px !important;
+}
+ .col-md-6.lable-ist {
+ text-align: right;
+}
+.col-md-6.select-ist {
+ text-align: left;
+}
+.two-col div {
+ display: inline-block;
+ vertical-align: top;
+ width: 488px;
+}
+ .list-decl {
+padding:0;
+margin:0;
+}
+.row-bg {
+ background: #e4e7ff;
+ padding: 7px;
+ margin: 0 0 26px 0;
+ font-family:Roboto-Medium;
+ font-weight:500;
+}
+span.tbl-heading {
+    display: block;
+}
+  
+}
+
+ @media only screen and (min-width: 764px) {
+ label.res-display {
+ display: inline-block;
+}
+ .row.form-group.row-bg {
+ display: block;
+     text-align: center;
+}
+label.transferor-scheme {
+ display: none;
+}
+label.transferee-scheme {
+ display: none;
+}
+label.scheme {
+ display: block;
+}
+.mbtm {
+ margin-bottom: 0;
+
+}
+ }
+
+ @media only screen and (min-width: 768px) {
+ .row.form-group.name-group {
+    display: block;
+}    
+  .ist-min-width {
+    width: 53px;
+  
+}   
+ }
+
+ @media only screen and (min-width: 800px) {
+.heading {
+ font-size: 21px;
+ text-align: right;
+ padding: 28px 19px 0 0;
+ font-weight: bold;
+}
+ .viewistdetails {
+ width: 831px;
+ margin: 0 auto;
+}
+ table.table.tbl-report {
+ overflow-x: inherit;
+}
+.label-name label {
+ font-size: 14px;
+ vertical-align: middle;
+ margin: 0;
+    padding: 0;
+}
+
+.view-detail-col {
+width: 46%;
+    display: inline-block;
+    vertical-align: top;
+}
+.pending_ist_contianer
+{
+    width:90%;
+    margin:0 auto;
+}
+}
+ @media only screen and (min-width: 960px) {
+
+.ist-min-width {
+    width: 76px;
+}
+
+}
+
+ @media only screen and (min-width: 1110px) {
+.view-detail-col {
+width: 27%;
+
+}
+.view-detail-col {
+width: 28%;
+
+}
+.ist-min-width {
+    width: 100px;
+}
+ }
+ @media only screen and (min-width: 1200px) {
+.ist-min-width {
+    width: 114px;
+}
+}
+ 
+ 
+ 
+ 
+ @font-face {
+ font-family: 'Roboto-Regular';
+ src: url('../fonts/Roboto-Regular.eot');
+ src: url('../fonts/Roboto-Regular.eot?#iefix') format('embedded-opentype'),  url('../fonts/Roboto-Regular.ttf') format('truetype'),  url('../fonts/Roboto-Regular.woff') format('woff'),  url('../fonts/Roboto-Regular.woff2') format('woff2');
+ font-weight: normal;
+ font-style: normal;
+}
+
+@font-face {
+  font-family: 'Roboto-Medium';
+  src: url('../fonts/Roboto-Medium.eot');
+  src: url('../fonts/Roboto-Medium.eot?#iefix') format('embedded-opentype'),
+       url('../fonts/Roboto-Medium.ttf') format('truetype'),
+       url('../fonts/Roboto-Medium.woff') format('woff'),
+       url('../fonts/Roboto-Medium.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+.selectDropDownHeight{
+    position:absolute;
+    left:0;
+    z-index:9;
+    left:0;
+    top: 2px;
+    width:94%;padding:0;
+    
+}
+.tab{
+    margin-left: 0.5em
+}
+.rfqIframe{
+    height: 100px;
+    width: 80%;
+    border: none;
+}

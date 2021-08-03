@@ -1,0 +1,8 @@
+Server=mysql
+Host=localhost
+DSN=none
+Username=root
+Password=YWRtaW5AMTIz  
+Url=jdbc:mysql://localhost:3306/pgimmf_crosstrade_db
+DriverName=MM.Mysql
+Driver=com.mysql.jdbc.Driver
