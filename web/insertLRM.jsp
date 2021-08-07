@@ -97,6 +97,10 @@ if(userId == null || userId.equals("-1") || userId.equals(""))
         istDetailsHashMap.put("securities_proceeds_utilized", checkNull(request.getParameter("securities_proceeds_utilized")));
         istDetailsHashMap.put("optimal_mix_of_low_duration_paper", checkNull(request.getParameter("optimal_mix_of_low_duration_paper")));
         istDetailsHashMap.put("line_borrowing_not_utilize_remark", checkNull(request.getParameter("notUtilizedRemark")));
+        //Added on 05-08-2021 START
+        istDetailsHashMap.put("line_available_val", checkNull(request.getParameter("line_available_val")));
+        istDetailsHashMap.put("borrowing_utilized", checkNull(request.getParameter("borrowing_utilized")));
+        //Added on 05-08-2021 END
         //LRM Data END
     }else if("Duration Rebalancing".equals(ist_type)){
         //Duration Rebalancing START
@@ -239,11 +243,40 @@ if(userId == null || userId.equals("-1") || userId.equals(""))
         //body = body + "Kindly do the needfull.<br>";
 	body = body + "Please "+approveUrl+" or "+RejectUrl+"the trade, in case you are in office.";
         
+        //Commented on 07-2021
+        /*
         mail.makeConnection();       
         sentSucc = mail.sendISTIntimationMail(subject, to, body);        
         mail.breakConnection();
+        */
+        //Added on 07-08-2021 START TO get email id for all FM START
+        lrmTrans.makeConnection();
+        String toEmailList = lrmTrans.getSellerEmailList(srno,null);
+        lrmTrans.breakConnection();
+        mail.makeConnection();
+        try
+        {
+            System.out.println("#### toEmailList ["+toEmailList+']');
+            if(toEmailList.contains(","))
+            {
+                String strArr [] = toEmailList.split(",");
+                for(String emailId : strArr)
+                {
+                    System.out.println("#### sending Mail id ["+emailId+']');
+                    sentSucc = mail.sendISTIntimationMail(subject,emailId, body);
+                }
+
+            }else{
+                System.out.println("#### sending Mail id ["+toEmailList+']');
+                sentSucc = mail.sendISTIntimationMail(subject, toEmailList, body);
+            }           
+
+        }catch(Exception e){
+            e.printStackTrace();
+        }
         System.out.println("#### Mail sent "+sentSucc);
-        //Mail END
+        mail.breakConnection();
+        //Added on 07-08-2021 START TO get email id for all FM END
         
     %>
         

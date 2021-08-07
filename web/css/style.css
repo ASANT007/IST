@@ -63,6 +63,7 @@ table.table.tbl-report {
 	max-width:250px;
 	display: inline-block;
 	margin-left: 10px;
+        vertical-align: top;//Added on 04-08-2021
 }
 .ist-min-width {
     vertical-align: top;

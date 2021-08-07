@@ -41,7 +41,12 @@ public class LRMTransManager
     FileEncryption fe = new FileEncryption();
     Logfile log = new Logfile();
     
-    public static void main(String...strings){
+    public static void main(String...strings) throws Exception{
+        
+        LRMTransManager lrmtm = new LRMTransManager();
+        lrmtm.makeConnection();
+        lrmtm.getSellerEmailList(1,null);
+        lrmtm.breakConnection();
         
     }
     public void connobj() throws SQLException, IOException, ClassNotFoundException {
@@ -306,11 +311,11 @@ public class LRMTransManager
         {   
             userList = getPendingFM(transfereeScheme, forType);
             
-        }else if(nextLevel.equals("3") || nextLevel.equals("4"))
+        }else if(nextLevel.equals("3") || nextLevel.equals("4") || nextLevel.equals("5")) //level 5 added on 07-08-2021
         {           
             userList = getUserFromLevel(nextLevel, forType);            
         }
-        //System.out.println("#### getPendingUser :: userList :"+userList);
+        System.out.println("#### getPendingUser :: userList :"+userList);
         return userList;
     }
     private String getPendingFM(int scheme, String forType) {
@@ -324,13 +329,16 @@ public class LRMTransManager
             }            
             
             rs1 = datacon.getData(sql);
-            if(rs1.next())
+            while(rs1.next())
             {
                 if("email".equals(forType)){
-                    userId = checkNull(rs1.getString("fm_userid"));
+                    userId = userId+","+checkNull(rs1.getString("fm_userid"));
                 }else{
-                    userId = checkNull(rs1.getString("firstname")) +" "+checkNull(rs1.getString("lastname"));
+                    userId = userId+","+checkNull(rs1.getString("firstname")) +" "+checkNull(rs1.getString("lastname"));
                 }
+            }
+            if(userId.length() > 0){
+                userId = userId.substring(1, userId.length());
             }
         }
         catch (SQLException se) {
@@ -567,6 +575,7 @@ public class LRMTransManager
         } catch (Exception e) {
             System.out.println("#### GeneralException getEmailId() : " + e.getMessage());
         }
+    System.out.println("####  getEmailId() : " + emailId);
     return emailId;
     }
     
@@ -733,6 +742,41 @@ public class LRMTransManager
 
         return dirForFiles;
     }    
-      
-   
+    //Added on 07-08-2021 START 
+    public String getSellerEmailList(int srNo, String userId){
+    String emailId = "";
+    try {   
+            if(checkNull(userId).length() > 0){
+                //Mail TO CO FM
+                sql = "select t1.emailid from pgimmf_usermaster t1, pgimmf_scheme_fm_mapping t2 where t1.userid = t2.fm_userid and t2.scheme_refno ='"+srNo+"' AND t1.userid !='"+userId+"'";
+            }else{
+                //Mail TO ALL FM
+                sql = "select t1.emailid from pgimmf_usermaster t1, pgimmf_scheme_fm_mapping t2 where t1.userid = t2.fm_userid and t2.scheme_refno ='"+srNo+"'";
+            }
+            
+            
+            rs1 = datacon.getData(sql);
+            
+            while(rs1.next())
+            {                
+                emailId = emailId +","+checkNull(rs1.getString("emailId"));                             
+            }            
+            if(emailId.length() > 0){                
+                emailId = emailId.substring(1, emailId.length());
+            }
+            
+        }
+        catch (SQLException se) {
+            System.out.println("#### SQLException getEmailId() : " + se.getMessage());
+            System.out.println("#### SQLException getEmailId() : " + se.getErrorCode());
+        } catch (NullPointerException ne) {
+            System.out.println("#### NullPointerException getEmailId() : " + ne.getMessage());
+        } catch (Exception e) {
+            System.out.println("#### GeneralException getEmailId() : " + e.getMessage());
+        }
+    System.out.println("####  getEmailId() : " + emailId);
+    return emailId;
+    }
+    
+    //Added on 07-08-2021 END
 }

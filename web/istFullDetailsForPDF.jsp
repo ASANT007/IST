@@ -100,6 +100,7 @@ h1, .h1, h2, .h2, h3, .h3 {
     String transferorSchemeName = "", transfereeSchemeName = "";
     String sellerCategory = "", sellerSubCategory = "", buyerCategory = "", buyerSubCategory = "";
     float sellerMinLrm = 0, buyerMinLrm = 0, sellerNetcashPos = 0, buyerNetcashPos = 0, secProcUtilized = 0 ;
+    float lineAvlVal = 0, borrowingUtilized = 0;//Added on 05-08-2021
     
     int sellerPreTrd  = 0, buyerPreTrd = 0, sellerPostTrd = 0, buyerPostTrd = 0;
     String sellerInterestRate = "", buyerInterestRate = "", rfqFile = "";
@@ -178,6 +179,8 @@ h1, .h1, h2, .h2, h3, .h3 {
             buyerNetcashPos = rs.getFloat("transferee_netcash_position");       
             secProcUtilized = rs.getFloat("securities_proceeds_utilized");
             lineAvl = checkNull(rs.getString("line_available"));
+            lineAvlVal = rs.getFloat("line_available_val");//Added on 05-08-2021
+            borrowingUtilized = rs.getFloat("borrowing_utilized");//Added on 05-08-2021
             lineAvlRmrk = checkNull(rs.getString("line_borrowing_not_utilize_remark"));
             optMixLowDurPaper = checkNull(rs.getString("optimal_mix_of_low_duration_paper"));
             
@@ -309,12 +312,34 @@ h1, .h1, h2, .h2, h3, .h3 {
              <td> </td>
          </tr>
          <tr>
-             <%if("Y".equals(lineAvl)){%>   
-          <input type="radio" name="lineBrorrowingUtilized" class="radio-btn" checked>
-              <label style="color:#07639d;">Line available and borrowing utilized </label>      
-          <%}else{%>        
-           <input type="radio" name="lineBrorrowingUtilized" class="radio-btn" checked>
-              <label style="color:#07639d;">Line available and borrowing not utilized</label>
+             <%if("Y".equals(lineAvl)){%>  
+             <td>
+                <input type="radio" name="lineBrorrowingUtilized" class="radio-btn" checked>
+                <label style="color:#07639d;">Line available and borrowing utilized </label>
+             </td>
+             <td>
+                <label>Line available</label>
+                <span ><%=lineAvlVal%></span>
+             </td>
+             <td>
+               <label>borrowing utilized</label>
+                <span ><%=borrowingUtilized%></span>  
+             </td>
+                
+          <%}else{%>  
+          <td>
+            <input type="radio" name="lineBrorrowingUtilized" class="radio-btn" checked>
+            <label style="color:#07639d;">Line available and borrowing not utilized</label>  
+          </td>
+          <td>
+              <label>Line available</label>
+               <span ><%=lineAvlVal%></span>
+          </td>
+          <td>
+              <label>borrowing not utilized</label>
+                <span>0.0</span>
+          </td>
+            
               
              <%}%>
          </tr>

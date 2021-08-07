@@ -96,8 +96,8 @@ $(document).ready(function () {
         //SimpleDateFormat format = new SimpleDateFormat("YYYY-MM-DD");
          
         //Commeneted by Amol S. on 07-06-2021
-         /*java.util.Date date = new java.util.Date();
-         SimpleDateFormat format = new SimpleDateFormat("DD-MM-YYYY");*/
+         java.util.Date date = new java.util.Date();
+         SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
     %>
     
 <form action="insertLRM.jsp" method="POST"  name="frm" autocomplete="off">
@@ -153,10 +153,10 @@ $(document).ready(function () {
       </div>
       
       <div class="form-group col-sm-4 col-md-4">
-          <!--
-        <label class="res-display">Date of ISTs </label>
-        <input class="form-control input-width" id="ist_datetime" style="background: url(calendar/calendar.gif)no-repeat 100%;width:150px" name="ist_datetime" type="text" placeholder="Enter Date" value=""  readonly>
-          -->
+          
+        <label class="res-display">Date of IST </label>
+        <input class="form-control input-width" id="ist_datetime" style="background: url(calendar/calendar.gif)no-repeat 100%;width:150px" name="ist_datetime" type="text" placeholder="Enter Date" value="<%=format.format(date)%>"  readonly>
+          
       </div>
       
     </div>

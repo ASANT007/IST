@@ -55,7 +55,7 @@ if(userId.equals("-1") || userId.equals(""))
         System.out.println("#### current_level "+current_level);
         ////Commented by Amol S. on 07-06-2021
         //if(role.equals("CIO") && current_level == 4)
-        if( (role.equals("CM") || role.equals("RM")) && current_level == 4 )
+        if( (role.equals("CM") || role.equals("RM")) && current_level == 5 )
         {
           statusUpdate = "Approved";
         }
@@ -83,7 +83,7 @@ if(userId.equals("-1") || userId.equals(""))
                 String nextuser = "";
                 //Commented by Amol S. on 07-06-2021
                 //if(role.equals("CIO") && current_level == 4)
-                if( (role.equals("CM") || role.equals("RM")) && current_level == 4)
+                if( (role.equals("CM") || role.equals("RM")) && current_level == 5)
                 {
                     ist.makeConnection();
                     ist.deleteFromRoutingTable(requestId);
@@ -100,7 +100,23 @@ if(userId.equals("-1") || userId.equals(""))
                        ist.updateStatusRoutingTable(requestId, statusUpdate, current_level, nextLevel);
                        ist.breakConnection();
                    }else{
-                       nextLevel = current_level+1;
+                       //Added by 06-08-2021 Sending to CEO when Transferor FM and Transferee FM iS CIO START
+                       ist.makeConnection();
+                       if(role.equals("CIO") && ist.isBothFMCIO(requestId)){
+                           
+                           nextLevel = current_level+1; // Will go to CEO.
+                           
+                       }else{
+                           System.out.println("##### CIO IS NOT FM ");
+                           if(role.equals("CIO")){
+                                nextLevel = current_level+2;
+                           }else{
+                              nextLevel = current_level+1;
+                           }
+                       }
+                        ist.breakConnection();
+                       //Added by 06-08-2021 END
+                       
                        ist.makeConnection();
                        ist.updateStatusRoutingTable(requestId, statusUpdate, current_level,nextLevel);
                        ist.breakConnection();
@@ -179,7 +195,7 @@ if(userId.equals("-1") || userId.equals(""))
             //if(role.equals("CIO"))
             if( (role.equals("CM") || role.equals("RM")) )
             {
-                toUserList = lrmTrans.getFromUserList(requestId);
+                toUserList = lrmTrans.getFromUserList(requestId); //get Multiple users.
                 subject = "IST Request "+requestId+" has been Approved";
                 body = "Hi,<br><br> ";
                 body = body + "<b>IST Request No: </b>"+requestId+ " of <b>IST Type : </b>" + istType+ " has been Approved by Mr. "+fullname+"<br><br> ";
@@ -223,7 +239,8 @@ if(userId.equals("-1") || userId.equals(""))
 
             }
             lrmTrans.breakConnection();
-
+            
+            //Common Mailing Functionality START
             mail.makeConnection();
             try
             {
@@ -263,8 +280,58 @@ if(userId.equals("-1") || userId.equals(""))
             }
             System.out.println("#### Mail sent "+sentSucc);
             mail.breakConnection();
-            //Mail END   
-            //out.println("Successful");
+            //Mailing Functionality END  
+            
+            //Mail To Co FM START added on 07-08-2021
+            if("FM".equals(role)){               
+                int srno = 0;               
+                if(appType.equals("seller")){
+                   srno = tansferorScheme;
+                }else{
+                     srno = transfereeScheme;
+                }
+                
+                lrmTrans.makeConnection();
+                String toEmailList = lrmTrans.getSellerEmailList(srno,userId);
+                lrmTrans.breakConnection();
+                
+                if(checkNull(toEmailList).length() >0)
+                {
+                    subject = "IST Request "+requestId+" has been Approved";
+                    body = "Hi,<br><br> ";
+                    body = body + "<b>IST Request No: </b>"+requestId+ " of <b>IST Type : </b>" + istType+ " has been Approved by Mr. "+fullname+"<br><br> ";
+                    body = body + "<b>Security name - </b>"+securityName+".<br><br>";
+                    body = body + "<b>Selling scheme - </b>"+transferorSchemeName+" <b>Buying scheme - </b>"+transfereeSchemeName+".<br><br>";
+                    
+                    mail.makeConnection();
+                    try
+                    {                    
+                        if(toEmailList.contains(","))
+                        {
+                            String strArr [] = toEmailList.split(",");
+                            for(String emailId : strArr)
+                            {
+                                System.out.println("#### sending Mail TO CO FM ["+emailId+']');
+                                sentSucc = mail.sendISTIntimationMail(subject,emailId, body);
+                            }
+
+                        }else{
+                            System.out.println("#### sending Mail TO CO FM ["+toEmailList+']');
+                            sentSucc = mail.sendISTIntimationMail(subject, toEmailList, body);
+                        }           
+
+                    }catch(Exception e){
+                        e.printStackTrace();
+                    }
+                    System.out.println("#### Mail sent to CO FM "+sentSucc);
+                    mail.breakConnection();
+                }
+                
+               
+            }
+             //Added on 07-08-2021 Mail To Co FM END
+            
+            
             if("link".equals(callType)){
                 out.println("LinkSucc");
             }else{

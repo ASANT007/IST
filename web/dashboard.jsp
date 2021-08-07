@@ -106,9 +106,9 @@ $(document).ready(function () {
           <%if(role.equals("IA")){%>
           <th width="15%" align="center" valign="middle" class="table-heading">Status</th>
           <%}else{%>
-          <th width="8%" align="center" valign="middle" class="table-heading">Action</th>
+          <th width="10%" align="center" valign="middle" class="table-heading">Action</th>
           <%if(role.equals("FM")){%>
-          <th width="35%" align="center" valign="middle" class="table-heading">Remark</th>
+          <th width="33%" align="center" valign="middle" class="table-heading">Remark</th>
           <%}%>
           
           
@@ -241,7 +241,7 @@ $(document).ready(function () {
                             </select>
                             </td>
                             <td> <textarea maxlength="1000" class="form-control" type ='text' id='rejection_remarks<%=count%>' name='rejection_remarks<%=count%>' style="display:block"placeholder="remark" rows="5" cols="30"></textarea>
-                            <input style="margin-top:10px;" type="button" class="btn btn-primary" value="Done" onclick="approved('<%=requestId%>','<%=status%>','<%=appType%>','<%=count%>','<%=role%>','<%=istType%>')">                           
+                            <input style="margin-top:10px;" type="button" class="btn btn-primary" value="Done" onclick="this.disabled=true;this.value='Submitting...';approved('<%=requestId%>','<%=status%>','<%=appType%>','<%=count%>','<%=role%>','<%=istType%>')">                           
                             </td>
                       </tr>
                 <%
@@ -302,7 +302,7 @@ $(document).ready(function () {
                             </td>
                             <td>
                                 <textarea maxlength="1000" class="form-control" type ='text' id='rejection_remarks<%=count%>' name='rejection_remarks<%=count%>' style="display: block"placeholder="remark" rows="5" cols="30"></textarea>
-                                <input style="margin-top:10px;" type="button" class="btn btn-primary" value="Done" onclick="approved('<%=requestId%>','<%=status%>','<%=appType%>','<%=count%>','<%=role%>','<%=istType%>')">                           
+                                <input style="margin-top:10px;" type="button" class="btn btn-primary" value="Done" onclick="this.disabled=true;this.value='Submitting...';approved('<%=requestId%>','<%=status%>','<%=appType%>','<%=count%>','<%=role%>','<%=istType%>')">                           
                             </td>
                    </tr>
              <%
@@ -366,8 +366,8 @@ $(document).ready(function () {
                                 <option value="Reject">Reject</option>
                             </select>
 
-                                <textarea maxlength="1000" class="form-control" type ='text' id='rejection_remarks<%=count%>' name='rejection_remarks<%=count%>' style="display: none"placeholder="rejection remark" rows="5" cols="30"></textarea>
-                                <input style="margin-top:10px;" type="button" class="btn btn-primary" value="Done" onclick="approved('<%=requestId%>','<%=status%>','<%=appType%>','<%=count%>','<%=role%>','<%=istType%>')">                           
+                                <textarea maxlength="1000" class="form-control" type ='text' id='rejection_remarks<%=count%>' name='rejection_remarks<%=count%>' style="display: none"placeholder="rejection remark" rows="5" cols="28"></textarea>
+                                <input style="margin-top:10px;" type="button" class="btn btn-primary" value="Done" onclick="this.disabled=true;this.value='Submitting...';approved('<%=requestId%>','<%=status%>','<%=appType%>','<%=count%>','<%=role%>','<%=istType%>')">                           
                             </td>
                        </tr>
                      <%

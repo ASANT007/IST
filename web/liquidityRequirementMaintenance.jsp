@@ -96,8 +96,8 @@ $(document).ready(function () {
     ResultSet rs = null;
     
     //SimpleDateFormat format = new SimpleDateFormat("YYYY-MM-DD");
-    /*java.util.Date date = new java.util.Date();
-    SimpleDateFormat format = new SimpleDateFormat("DD-MM-YYYY");*/
+    java.util.Date date = new java.util.Date();
+    SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
     %>
     <form action="insertLRM.jsp" method="POST"  name="frm" autocomplete="off">
 <div class="container">
@@ -151,10 +151,10 @@ $(document).ready(function () {
       </div>
       
       <div class="form-group col-sm-4 col-md-4">
-          <!--
-        <label class="res-display">Date of ISTs </label>        
-        <input class="form-control input-width" id="ist_datetime" style="background: url(calendar/calendar.gif)no-repeat 100%;width:150px" name="ist_datetime" type="text" placeholder="Enter Date" value="" readonly>
-          -->
+          
+        <label class="res-display">Date of IST </label>        
+        <input class="form-control input-width" id="ist_datetime" style="background: url(calendar/calendar.gif)no-repeat 100%;width:150px" name="ist_datetime" type="text" placeholder="Enter Date" value="<%=format.format(date)%>" readonly>
+          
       </div>
       
     </div>
@@ -253,10 +253,32 @@ $(document).ready(function () {
           <label>Line available and borrowing not utilized</label>
       </div>
          <div class="col-md-4 col-sm-6">
-          <textarea maxlength="1000" class="form-control input-width" rows="4" cols ="50" id="notUtilizedRemark" name="notUtilizedRemark" style="display:none" ></textarea>
+          
       </div>
     </div>
     
+    <!-- Added on 04-08-2021 START -->
+    <div class="row form-group">
+        <div class="col-md-12">
+            <div class="col-md-4" id="line_available_val_div" style="display:none" >
+            <label>Line available</label>
+            <input class="input-width form-control" type="text" id="line_available_val" name ="line_available_val" oninput="decimalCheck(this)"/>
+            </div>
+            <div class="col-md-5" id="borrowing_utilized_div" style="display:none" >
+            <label>Borrowing utilized</label>
+            <input class="input-width form-control" type="text" id="borrowing_utilized" name ="borrowing_utilized" oninput="decimalCheck(this)"/>
+            </div>
+            <div class="col-md-4" id="borrowing_not_utilized_div" style="display:none" >
+            <label>Borrowing not utilized</label>
+            <input class="input-width form-control" style="width:50px;" type="text" value="0.0" readonly id="borrowing_not_utilized" name ="borrowing_not_utilized"/>
+            </div>
+            <div class="col-md-4" id="notUtilizedRemark_div"style="display:none" >
+            <label>Remarks</label>
+            <textarea maxlength="1000" class="form-control input-width" rows="4" cols ="50" id="notUtilizedRemark" name="notUtilizedRemark"></textarea>
+            </div>
+        </div>
+    </div>
+     <!-- Added on 04-08-2021 END-->
    <div class="row">
       <div class="form-group col-md-6">
         <label>Sale proceeds of the securities utilized (Rs. in Cr) :</label>

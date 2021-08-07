@@ -23,8 +23,8 @@ function addLRM(){
     var transferror_sub_category = $('#transferorSchemeSubCategory').val();     
     var transferee_category = $('#transfereeSchemeCategory').val();
     var transferee_sub_category = $('#transfereeSchemeSubCategory').val();
-
-
+    
+    
      if($('#security_name').val() == ""){
          $("#errorDiv").html("Please select Name of security to be transferred");
      }else if($('#security_isin_no').val() == ""){
@@ -56,6 +56,8 @@ function validateLRM(){
 						.getElementById('attached_pdf').value;
 
     var checkBox = document.getElementById("declaration");
+    
+    
     if($('#transferror_min_lrm').val() == ""){
         
       $("#errorDiv").html("Please Enter Transferor LRM minimum cash");  
@@ -91,6 +93,30 @@ function validateLRM(){
     }else if((!$("#lineBrorrowingUtilized").is(":checked")) && (!$("#lineBrorrowingNotUtilized").is(":checked")) ){
        
         $("#errorDiv").html("Please select Line available and borrowing utilized OR Line available and borrowing not utilized");
+        
+    }else if(($("#lineBrorrowingUtilized").is(":checked")) && $('#line_available_val').val() == ""){
+        
+        $("#errorDiv").html("Please Enter value for Line available");
+        
+    }else if(($("#lineBrorrowingUtilized").is(":checked")) && !$('#line_available_val').val() == "" &&(($('#line_available_val').val() == 0 || $('#line_available_val').val() < 0) || (!$.isNumeric($('#line_available_val').val())))){
+        //alert('---Wrng 1----');
+        $("#errorDiv").html("Invalid value for Line available");
+        
+    }else if(($("#lineBrorrowingUtilized").is(":checked")) && $('#borrowing_utilized').val() == ""){
+        //alert('---Wrng 2----');
+        $("#errorDiv").html("Please Enter value for Borrowing utilized");
+        
+    }else if(($("#lineBrorrowingUtilized").is(":checked")) && !$('#borrowing_utilized').val() == "" &&(($('#borrowing_utilized').val() == 0 || $('#borrowing_utilized').val() < 0) || (!$.isNumeric($('#borrowing_utilized').val())))){
+        //alert('---Wrng 3----');
+        $("#errorDiv").html("Invalid value for Borrowing utilized");
+        
+    }else if(($("#lineBrorrowingNotUtilized").is(":checked")) && $('#line_available_val').val() == ""){
+        //alert('---Wrng 4----');
+        $("#errorDiv").html("Please Enter value for Line available");
+        
+    }else if(($("#lineBrorrowingNotUtilized").is(":checked")) && !$('#line_available_val').val() == "" &&(($('#line_available_val').val() == 0 || $('#line_available_val').val() < 0) || (!$.isNumeric($('#line_available_val').val())))){
+        //alert('---Wrng 5----');
+        $("#errorDiv").html("Invalid value for Line available");
         
     }else if(($("#lineBrorrowingNotUtilized").is(":checked")) && $('#notUtilizedRemark').val() == ""){
         
@@ -536,13 +562,20 @@ function showHideRemark(count, role){
     
 }
 function hideJustification(){
-    $('#notUtilizedRemark').hide();
+    $('#notUtilizedRemark_div').hide();
+    $('#borrowing_not_utilized_div').hide();//Added on 04-08-2021
+    $('#line_available_val_div').show();//Added on 04-08-2021
+    $('#borrowing_utilized_div').show();//Added on 04-08-2021
+    
     
 }
 
 function showJustification(){
     
-    $('#notUtilizedRemark').show();
+    $('#notUtilizedRemark_div').show();
+    $('#borrowing_utilized_div').hide();//Added on 04-08-2021
+    $('#line_available_val_div').show();//Added on 04-08-2021
+    $('#borrowing_not_utilized_div').show();//Added on 04-08-2021
 }
 
 function validateISTFilterReports(){

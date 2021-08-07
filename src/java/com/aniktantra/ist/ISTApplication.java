@@ -22,6 +22,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
 import java.nio.file.*;
+import java.util.ArrayList;
 
 
 /**
@@ -30,6 +31,14 @@ import java.nio.file.*;
  */
 public class ISTApplication 
 {
+    
+   public static void main(String [] args ) throws Exception{
+       ISTApplication ista = new ISTApplication();
+       ista.makeConnection();       
+       //ista.isBothFMCIO("20210806168");
+       ista.isBothFMCIO("20210807181");
+       ista.breakConnection();
+   }
     
     Connection conn;
     boolean connectionFlag = false;
@@ -172,7 +181,8 @@ public class ISTApplication
                 
                 sqlQuery = sqlQuery +"transferror_min_lrm,transferee_min_lrm,transferror_netcash_position,transferee_netcash_position,line_available,";
                 sqlQuery = sqlQuery +"line_borrowing_not_utilize_remark,securities_proceeds_utilized,optimal_mix_of_low_duration_paper,rfq_filename";//9
-                sqlQuery = sqlQuery +") values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+                sqlQuery = sqlQuery +",line_available_val,borrowing_utilized";//Added on 05-08-2021
+                sqlQuery = sqlQuery +") values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";//Added 2 more on 05-08-2021
                         
             }else if("Duration Rebalancing".equals(istDetailsHashMap.get("ist_type"))){
                 
@@ -219,6 +229,8 @@ public class ISTApplication
                 this.prpd.setFloat(18, getFloatValue(istDetailsHashMap.get("securities_proceeds_utilized")));
                 this.prpd.setString(19, checkNull(istDetailsHashMap.get("optimal_mix_of_low_duration_paper")));               
                 this.prpd.setString(20, fileName);
+                this.prpd.setDouble(21, getFloatValue(istDetailsHashMap.get("line_available_val")));//Added on 05-08-2021
+                this.prpd.setDouble(22, getFloatValue(istDetailsHashMap.get("borrowing_utilized")));//Added on 05-08-2021
                 
             }else if("Duration Rebalancing".equals(istDetailsHashMap.get("ist_type"))){
                 
@@ -710,6 +722,80 @@ public class ISTApplication
             e.printStackTrace();
         }
         return fileName;
+    }
+    public boolean isBothFMCIO(String requestId){
+       
+        boolean isBothFMIsCIO = false;
+        try
+        {
+            sql = "select to_user from pgimmf_ist_tracking_table where ist_request_id = '"+requestId+"' LIMIT 2";
+            rs = datacon.getData(sql);
+            String  userList = "";
+            while(rs.next()){
+                
+                userList = userList +"~"+rs.getString("to_user");
+            }
+            
+            isBothFMIsCIO = checkRole(userList);
+        
+        }catch(Exception e){
+            e.printStackTrace();
+        }        
+        return isBothFMIsCIO;
+    }
+
+    private boolean checkRole(String userList) {
+        
+        boolean isCIO = false;         
+        String sellerFM = "", buyerFM = "";
+        try{
+            
+            if(checkNull(userList).length() > 0)
+            {
+                
+                userList = userList.substring(1, userList.length());
+                if(userList.contains("~")){
+                    String [] arryList = userList.split("~");
+                    sellerFM = getCIO(arryList[0]);            
+                    buyerFM = getCIO(arryList[1]);  
+                }
+                 
+            }
+            
+            
+            sql = "select role from `pgimmf_usermaster` where userid = '"+sellerFM+"'"; 
+            rs = datacon.getData(sql);
+            
+            if(rs.next()){
+                
+                if("CIO".equalsIgnoreCase(checkNull(rs.getString("role")))){
+                    
+                    sql = "select role from `pgimmf_usermaster` where userid = '"+buyerFM+"'";
+                    rs1 = datacon.getData(sql);
+                    if(rs1.next()){
+                       if("CIO".equalsIgnoreCase(checkNull(rs1.getString("role")))){                        
+                            isCIO = true;
+                        } 
+                    }
+                    
+                }else{
+                    isCIO = false;
+                   
+                }
+            }
+            
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+         System.out.println("#### Both are CIO "+isCIO);
+        return isCIO;
+    }
+
+    private String getCIO(String arryList) {
+         String cioFM = "";
+         cioFM = arryList.substring(0,arryList.length()-1);  
+         cioFM = cioFM+"_"+arryList.charAt(arryList.length()-1);         
+         return cioFM;
     }
     
 }
